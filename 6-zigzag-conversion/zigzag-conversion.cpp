@@ -1,30 +1,21 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        if (numRows == 1 || s.size() <= numRows) return s;
+        int n = s.length();
+        if(numRows==1 || n <= numRows) return s;
+        vector<string>store(numRows);
+        int d = -1;
+        int count = 0;
 
-        vector<string> matrix(numRows);
-        int i = 0, n = s.size(), index = 0;
-        bool direction = true;
-
-        while (i < n) {
-            matrix[index].push_back(s[i]);
-
-            if (index == numRows - 1) direction = false;
-            if (index == 0) direction = true;
-
-            if (direction) index++;
-            else index--;
-
+        int i=0;
+        while(i<n){
+            store[count] += s[i];
+            if(count==(numRows-1) || count==0) d *= -1;
+            count += d;
             i++;
         }
-
-        string result;
-        for(auto &x:matrix)
-        {
-            result+=x;
-        }
-
-        return result;
+        string ans;
+        for(auto& x:store) ans += x;
+        return ans;
     }
 };
